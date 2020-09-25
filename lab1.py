@@ -18,24 +18,25 @@ if __name__ == '__main__':
 
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     assert isinstance(gray_img, object)
-    histg = cv2.calcHist([img], [0], None, [256], [0, 256])
+    histg = np.zeros((255, 1))
+
+    for y in range(gray_img.shape[0]):
+        for x in range(gray_img.shape[1]):
+            i = gray_img[x, y]
+            histg[i] = histg[i] + 1
+
+    histg_cv = cv2.calcHist([gray_img], [0], None, [256], [0, 256])
     # cv2.imshow("gray_img", gray_img)
 
     # linear transforms
     linear_image = np.zeros(gray_img.shape, gray_img.dtype)
-    five_percent = int(gray_img.shape[0] * gray_img.shape[1] * 0.05)
-    max_hist = histg.max()
-    min_hist = histg.min()
-    non_zero = np.count_nonzero(histg, axis=None)
+    all_cnt = gray_img.shape[0] * gray_img.shape[1]
+    five_percent = int(all_cnt * 0.05)
+
     # print(max_hist, min_hist, non_zero)
-    left = 0
-    while histg[left] == 0:
-        left = left + 1
-    right = 254
-    while histg[right] == 0:
-        right = right - 1
-    alpha = left
-    beta = right
+
+    alpha = 0
+    beta = 254
     # print(left, right)
     while five_percent > 0:
         if histg[alpha] < histg[beta]:
@@ -53,18 +54,31 @@ if __name__ == '__main__':
     histg_linear = cv2.calcHist([linear_image], [0], None, [256], [0, 256])
 
     # equalization
-    equ_image = cv2.equalizeHist(gray_img)
+    equ_image_cv = cv2.equalizeHist(gray_img)
+    np.zeros(gray_img.shape, gray_img.dtype)
+    trans_table = np.zeros((255, 1))
+    sum_before = 0
+    for y in range(255):
+        trans_table[y] = histg[y] * 255 / all_cnt
+        trans_table[y] += sum_before
+        sum_before += histg[y] / all_cnt
+
+    equ_image = np.zeros(gray_img.shape, gray_img.dtype)
+    for y in range(gray_img.shape[0]):
+        for x in range(gray_img.shape[1]):
+            equ_image[y, x] = np.clip(trans_table[gray_img[y, x]], 0, 255)
+
     histg_equalize = cv2.calcHist([equ_image], [0], None, [256], [0, 256])
 
     # visualization
+    ideal = cv2.imread("Lenna_orig.png", 0)
     vis = np.concatenate((gray_img, equ_image), axis=1)
     vis = np.concatenate((vis, linear_image), axis=1)
     cv2.imshow("orig equalize linear", vis)
 
-    # plt.plot(histg, "b", label='line 1')
     plt.plot(histg, "b")
     plt.plot(histg_equalize, "r")
-    plt.plot(histg_linear, "g")
+    # plt.plot(histg_linear, "g")
     plt.show()
 
     cv2.waitKey()
