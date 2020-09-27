@@ -1,5 +1,8 @@
+from random import randint
+
 import cv2
 import numpy as np
+import matplotlib.mlab as mlab
 import matplotlib.pyplot as plt
 
 
@@ -23,7 +26,7 @@ if __name__ == '__main__':
     for y in range(gray_img.shape[0]):
         for x in range(gray_img.shape[1]):
             i = gray_img[x, y]
-            histg[i] = histg[i] + 1
+            histg[i] = int(histg[i] + 1)
 
     histg_cv = cv2.calcHist([gray_img], [0], None, [256], [0, 256])
     # cv2.imshow("gray_img", gray_img)
@@ -55,13 +58,12 @@ if __name__ == '__main__':
 
     # equalization
     equ_image_cv = cv2.equalizeHist(gray_img)
-    np.zeros(gray_img.shape, gray_img.dtype)
+
     trans_table = np.zeros((255, 1))
     sum_before = 0
     for y in range(255):
-        trans_table[y] = histg[y] * 255 / all_cnt
-        trans_table[y] += sum_before
-        sum_before += histg[y] / all_cnt
+        trans_table[y] = sum_before + histg[y] * 255.0 / all_cnt
+        sum_before += histg[y] * 255.0 / all_cnt
 
     equ_image = np.zeros(gray_img.shape, gray_img.dtype)
     for y in range(gray_img.shape[0]):
@@ -76,10 +78,32 @@ if __name__ == '__main__':
     vis = np.concatenate((vis, linear_image), axis=1)
     cv2.imshow("orig equalize linear", vis)
 
+    '''
     plt.plot(histg, "b")
     plt.plot(histg_equalize, "r")
-    # plt.plot(histg_linear, "g")
+    plt.plot(histg_linear, "g")
+    '''
+    fig, ax = plt.subplots()
+    x = np.arange(1, len(histg.transpose().tolist()[0]) + 1)
+    ax.bar(x, histg.transpose().tolist()[0])
+    fig, ax = plt.subplots()
+    ax.bar(x, histg_equalize.transpose().tolist()[0])
+    fig, ax = plt.subplots()
+    ax.bar(x, histg_linear.transpose().tolist()[0])
+
+    ax.set_facecolor('seashell')
+    fig.set_facecolor('floralwhite')
+    fig.set_figwidth(12)  # ширина Figure
+    fig.set_figheight(6)  # высота Figure
+
     plt.show()
+
+    '''
+    plt.hist(gray_img)
+    plt.hist(equ_image)
+    plt.hist(gray_img)
+    plt.show()
+    '''
 
     cv2.waitKey()
     cv2.destroyAllWindows()
