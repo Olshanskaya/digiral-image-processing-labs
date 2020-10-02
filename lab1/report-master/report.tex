@@ -1,0 +1,86 @@
+\include{settings}
+
+\begin{document}	% начало документа
+
+% Титульная страница
+\include{titlepage}
+
+% Содержание
+\include{ToC}
+
+
+\section{Цель работы}
+Первичное ознакомление с библиотекой opencv, получение навыков построения гистограмм и изучение операций над ними. Улучшения контраста изображения при помощи операций над гистограммами.
+
+
+\section{Программа работы}
+1. Построить гистограмму черно-белого изображения.
+
+2. Сделать линейное растяжение гистограммы и построить соответствующее изображение. 
+
+3. Сделать эквализацию гистограммы и построить соответствующее изображение.
+
+
+\section{Ход выполнения работы}
+
+\subsection{Построение гистограммы изображения}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.7]{Lenna.png}
+		\caption{Оригинальное изображение (в цвете)} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.8]{hist_org.JPG}
+		\caption{Сравнение гистограмм} 
+		\label{pic:hist_linear} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.3]{rez.JPG}
+		\caption{Сравнение изображений} 
+		\label{pic:hist_linear} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+\subsection{Сравнение способов улучшения на искусственно созданном изображении}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.3]{rez2.jpg}
+		\caption{Сравнение оригинального и улучшенных изображений} 
+		\label{pic:hist_eq} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.7]{hist_last.JPG}
+		\caption{Сравнение гистограмм оригинального и улучшенных изображений} 
+		\label{pic:hist_eq} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+\subsection{Сравнение способов улучшения}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.3]{rez3.jpg}
+		\caption{Сравнение оригинального и улучшенных изображений} 
+		\label{pic:hist_eq} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.7]{hisl_last_art.JPG}
+		\caption{Сравнение гистограмм оригинального и улучшенных изображений} 
+		\label{pic:hist_eq} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+\section{Выводы}
+Если на гистограмме исходного изображения два локальных максимума, расположенных по краям изображения, линейное растяжение гистограммы практически не изменяет гистограмму, а при эквализации возможно появление артефактов в области интенсивности исходных локальных максимумов.
+\end{document}
