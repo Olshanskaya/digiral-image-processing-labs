@@ -67,42 +67,54 @@ if __name__ == '__main__':
 
     img_roberts_1 = apply_img_filtr(img_board, roberts_1)
     norm_rob_1 = one_normalize_255(img_roberts_1)
-    #cv2.imshow("norm_rob_1", norm_rob_1)
-    cv2.imwrite("norm_rob_x.jpg", norm_rob_1)
     img_roberts_2 = apply_img_filtr(img_board, roberts_2)
     norm_rob_2 = one_normalize_255(img_roberts_2)
-    #cv2.imshow("norm_rob_2", norm_rob_2)
+    # cv2.imshow("norm_rob_2", norm_rob_2)
     cv2.imwrite("norm_rob_2.jpg", norm_rob_2)
-    rezult_img = both_x_y(img_roberts_1, img_roberts_2)
-    rezult_img = normilize_255(rezult_img)
-    cv2.imshow("img_rob_y_x", rezult_img)
-    cv2.imwrite("img_rob_y_x.jpg", rezult_img)
+    rezult_img_roberts = both_x_y(img_roberts_1, img_roberts_2)
+    rezult_img_roberts = normilize_255(rezult_img_roberts)
+    cv2.imshow("img_rob_y_x", rezult_img_roberts)
 
+    robrts_all = np.concatenate((norm_rob_1, norm_rob_2), axis=1)
+    robrts_all = np.concatenate((robrts_all, rezult_img_roberts), axis=1)
+    cv2.imwrite("robrts_all.jpg", robrts_all)
 
     # Sobel
 
     img_sobel_x = apply_img_filtr(img_board, sobel_x)
     norm_sob_1 = one_normalize_255(img_sobel_x)
-    #cv2.imshow("norm_sob_x", norm_sob_1)
+    # cv2.imshow("norm_sob_x", norm_sob_1)
     img_sobel_y = apply_img_filtr(img_board, sobel_y)
     norm_sob_2 = one_normalize_255(img_sobel_y)
-    #cv2.imshow("norm_sob_y", norm_sob_2)
-    rezult_img = both_x_y(img_sobel_x, img_sobel_y)
-    rezult_img = normilize_255(rezult_img)
-    cv2.imshow("img_sob_y_x", rezult_img)
+    # cv2.imshow("norm_sob_y", norm_sob_2)
+    rezult_img_Sobel = both_x_y(img_sobel_x, img_sobel_y)
+    rezult_img_Sobel = normilize_255(rezult_img_Sobel)
+    cv2.imshow("img_sob_y_x", rezult_img_Sobel)
+
+    Sobel_all = np.concatenate((norm_sob_1, norm_sob_2), axis=1)
+    Sobel_all = np.concatenate((Sobel_all, rezult_img_Sobel), axis=1)
+    cv2.imwrite("Sobel_all.jpg", Sobel_all)
 
     # prewit
 
     img_prewit_x = apply_img_filtr(img_board, prewitt_x)
     norm_prew_x = one_normalize_255(img_prewit_x)
-    #cv2.imshow("norm_prew_x", norm_prew_x)
+    # cv2.imshow("norm_prew_x", norm_prew_x)
     img_prewit_y = apply_img_filtr(img_board, prewitt_y)
     norm_prew_y = one_normalize_255(img_prewit_y)
-    #cv2.imshow("norm_prew_y", norm_prew_y)
-    rezult_img = both_x_y(img_prewit_x, img_prewit_y)
-    rezult_img = normilize_255(rezult_img)
-    cv2.imshow("img_prewit_y_x", rezult_img)
+    # cv2.imshow("norm_prew_y", norm_prew_y)
+    rezult_img_prewit = both_x_y(img_prewit_x, img_prewit_y)
+    rezult_img_prewit = normilize_255(rezult_img_prewit)
+    cv2.imshow("img_prewit_y_x", rezult_img_prewit)
 
+    prewit_all = np.concatenate((norm_prew_x, norm_prew_y), axis=1)
+    prewit_all = np.concatenate((prewit_all, rezult_img_prewit), axis=1)
+    cv2.imwrite("prewit_all.jpg", prewit_all)
+
+    # all
+    all_sravnenie = np.concatenate((rezult_img_roberts, rezult_img_Sobel), axis=1)
+    all_sravnenie = np.concatenate((all_sravnenie, rezult_img_prewit), axis=1)
+    cv2.imwrite("all_sravnenie.jpg", all_sravnenie)
 
     cv2.waitKey()
     cv2.destroyAllWindows()
