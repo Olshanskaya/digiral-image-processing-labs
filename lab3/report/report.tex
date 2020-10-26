@@ -1,0 +1,153 @@
+\include{settings}
+\usepackage{amsmath}
+
+\begin{document}	% начало документа
+
+% Титульная страница
+\include{titlepage}
+
+% Содержание
+\include{ToC}
+
+
+\section{Цель работы}
+Ознакомиться со способами выделения контуров при помощи операторов Робертса, Превитта и Собеля.
+
+
+\section{Программа работы}
+1. Выделить границы тремя способами на естественном изображении с ярковыраженными границами
+
+2. Выделить границы тремя способами на искусственном изображении с ярковыраженными границами 
+
+3. Сравнить результаты работы разных операторов и сделать выводы.
+
+
+\section{Ход выполнения работы}
+
+Операторы Робертса 
+
+$\begin{pmatrix}
+	1 & 0\\ 
+	0 & -1
+\end{pmatrix}$ 
+$\begin{pmatrix}
+	0 & 1\\ 
+	-1 & 0
+\end{pmatrix}$ 
+
+
+Операторы Собеля 
+
+$\begin{pmatrix}
+	-1 & -2 & -1\\ 
+	0 & 0 & 0 \\
+	1 & 2 & 1
+\end{pmatrix}$ 
+$\begin{pmatrix}
+	-1 & 0 & 1\\ 
+	-2 & 0 & 2 \\
+	-1 & 0 & 1
+\end{pmatrix}$ 
+
+
+Операторы Превитта 
+
+$\begin{pmatrix}
+	-1 & -1 & -1\\ 
+	0 & 0 & 0 \\
+	1 & 1 & 1
+\end{pmatrix}$ 
+$\begin{pmatrix}
+	-1 & 0 & 1\\ 
+	-1 & 0 & 1 \\
+	-1 & 0 & 1
+\end{pmatrix}$ 
+
+Магнитуда считается как $\sqrt{x^2 + y^2}$
+
+
+
+\subsection{Выделить границы тремя способами на естественном изображении с ярковыраженными границами}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{zebra.jpg}
+		\caption{Оригинальное изображение в цвете} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.2]{robrts_all_2.jpg}
+		\caption{Выделение границ при помощи операторов Робертса} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.2]{Sobel_all_2.jpg}
+		\caption{Выделение границ при помощи операторов Собеля} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.2]{prewit_all_2.jpg}
+		\caption{Выделение границ при помощи операторов Превитта} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+
+
+\subsection{Выделить границы тремя способами на искусственном изображении с ярковыраженными границами}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.5]{lines.JPG}
+		\caption{Оригинальное изображение} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.25]{robrts_all_1.jpg}
+		\caption{Выделение границ при помощи операторов Робертса} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.25]{Sobel_all_1.jpg}
+		\caption{Выделение границ при помощи операторов Собеля} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.25]{prewit_all_1.jpg}
+		\caption{Выделение границ при помощи операторов Превитта} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+\subsection{Сравнить результаты работы разных операторов и сделать выводы}
+
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.2]{all_sravnenie_2.jpg}
+		\caption{Сравнение выделения границ операторами Робертса, Собеля и Превитта на естественном изображении} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+\begin{figure}[H]
+	\begin{center}
+		\includegraphics[scale=0.25]{all_sravnenie_1.jpg}
+		\caption{Сравнение выделения границ операторами Робертса, Собеля и Превитта на искусственном изображении} 
+		\label{pic:hist_orig} % название для ссылок внутри кода
+	\end{center}
+\end{figure}
+
+
+\section{Выводы}
+Оператор Робертса работает не так качественно как операторы Собеля и Превитта. Оператор Собеля довольно похож на оператор Превитта, а видоизменение заключается в использовании весового коэффициента 2 для средних элементов. Это увеличенное значение используется для уменьшения эффекта сглаживания за счет придания большего веса средним точкам. Этот эффект виден только при большом увеличении изображения
+\end{document}
